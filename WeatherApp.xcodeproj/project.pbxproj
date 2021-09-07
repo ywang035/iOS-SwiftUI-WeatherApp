@@ -24,6 +24,8 @@
 		DAADA5AA26E734D90092D913 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5A926E734D90092D913 /* ViewController.swift */; };
 		DAADA5AD26E74A320092D913 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5AC26E74A320092D913 /* Weather.swift */; };
 		DAADA5B026E74DA30092D913 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5AF26E74DA30092D913 /* NetworkManager.swift */; };
+		DAADA5B226E784370092D913 /* WeatherListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5B126E784370092D913 /* WeatherListView.swift */; };
+		DAADA5B426E78FCC0092D913 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5B326E78FCC0092D913 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		DAADA5A926E734D90092D913 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DAADA5AC26E74A320092D913 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		DAADA5AF26E74DA30092D913 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		DAADA5B126E784370092D913 /* WeatherListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListView.swift; sourceTree = "<group>"; };
+		DAADA5B326E78FCC0092D913 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				DAADA59926E734020092D913 /* MainView.swift */,
+				DAADA5B326E78FCC0092D913 /* HeaderView.swift */,
+				DAADA5B126E784370092D913 /* WeatherListView.swift */,
 				DAADA59F26E7344B0092D913 /* WeatherCardView.swift */,
 				DAADA59D26E734290092D913 /* WeatherDetailView.swift */,
 				DAADA59B26E7341D0092D913 /* CitySearchView.swift */,
@@ -342,7 +348,9 @@
 				DAADA59A26E734020092D913 /* MainView.swift in Sources */,
 				DAADA5A826E734A60092D913 /* WeatherViewModel.swift in Sources */,
 				DAADA59E26E734290092D913 /* WeatherDetailView.swift in Sources */,
+				DAADA5B426E78FCC0092D913 /* HeaderView.swift in Sources */,
 				DAADA56C26E733840092D913 /* WeatherAppApp.swift in Sources */,
+				DAADA5B226E784370092D913 /* WeatherListView.swift in Sources */,
 				DAADA5A626E7349C0092D913 /* CityViewModel.swift in Sources */,
 				DAADA5A226E7347F0092D913 /* City.swift in Sources */,
 			);

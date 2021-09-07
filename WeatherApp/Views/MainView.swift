@@ -14,37 +14,20 @@ struct MainView: View {
     var body: some View {
         
         VStack{
-            Button(action: {
-                
-                weatherVM.tempUnit = "metric"
-                weatherVM.cityIDs = "2158177,2147714"
-                
-                weatherVM.prepareWeatherDara(unit: weatherVM.tempUnit, cityIDs: weatherVM.cityIDs)
-                
-            }, label: {
-                Text("get API")
-            })
+            // MARK: - header
+            HeaderView(weatherVM: weatherVM)
             
+            // MARK: - main section
             if weatherVM.fetchDataStatus == .finishFetching {
                 
                 if weatherVM.fetchFail {
-                    Text("Data not available, come back later")
+                    Text("Data not available.\nCome back later.")
                         .frame(maxHeight: .infinity)
+                        .foregroundColor(Color("orange"))
+                        .multilineTextAlignment(.center)
                 } else {
                     
-                    List{
-                        ForEach(weatherVM.weatherList, id: \.self){ weather in
-                            
-                            HStack{
-                                Text("\(weather.cityName)")
-                                
-                                Spacer()
-                                
-                                Text("\(weather.temperature)")
-                            }
-                            .padding()
-                        }
-                    }
+                    WeatherListView(weatherVM: weatherVM)
                     
                 }
                 
@@ -54,11 +37,17 @@ struct MainView: View {
             }
             else {
                 ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color("orange")))
+                    .scaleEffect(2)
                     .frame(maxHeight: .infinity)
             }
         }
-        
-        
+        .onAppear(){
+            weatherVM.tempUnit = "metric"
+            weatherVM.cityIDs = "2158177,2147714,2174003"
+
+            weatherVM.prepareWeatherDara(unit: weatherVM.tempUnit, cityIDs: weatherVM.cityIDs)
+        }
     }
 }
 

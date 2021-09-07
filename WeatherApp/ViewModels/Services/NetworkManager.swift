@@ -9,18 +9,16 @@ import Foundation
 
 class NetworkManager{
     
-    
-    
     func fetchAPIData(unit: String, cityIDs: String, completion:@escaping (APIResponse) -> ()) {
         
         print("fetching")
         
         let appID = "d36df9373c1eb937af289bc9b4685c80"
         
-        guard let url = URL(string: "https://api.opeweathermap.org/data/2.5/group?id=\(cityIDs)&appid=\(appID)&units=\(unit)") else {
-            print("Invalid url...")
-            return
-        }
+        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/group?id=\(cityIDs)&appid=\(appID)&units=\(unit)") else {
+                    print("Invalid url...")
+                    return
+                }
         
         let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
