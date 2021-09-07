@@ -8,16 +8,54 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @ObservedObject var weatherVM = WeatherViewModel()
+    
     var body: some View {
         
         VStack{
             Button(action: {
-                APICaller().loadData { value in
-                    print(value)
-                }
+                
+                weatherVM.tempUnit = "metric"
+                weatherVM.cityIDs = "2158177,2147714"
+                
+                weatherVM.prepareWeatherDara(unit: weatherVM.tempUnit, cityIDs: weatherVM.cityIDs)
+                
             }, label: {
                 Text("get API")
             })
+            
+            if weatherVM.fetchDataStatus == .finishFetching {
+                
+                if weatherVM.fetchFail {
+                    Text("Data not available, come back later")
+                        .frame(maxHeight: .infinity)
+                } else {
+                    
+                    List{
+                        ForEach(weatherVM.weatherList, id: \.self){ weather in
+                            
+                            HStack{
+                                Text("\(weather.cityName)")
+                                
+                                Spacer()
+                                
+                                Text("\(weather.temperature)")
+                            }
+                            .padding()
+                        }
+                    }
+                    
+                }
+                
+            } else if weatherVM.fetchDataStatus == .notFetching {
+                Text("welcome")
+                    .frame(maxHeight: .infinity)
+            }
+            else {
+                ProgressView()
+                    .frame(maxHeight: .infinity)
+            }
         }
         
         
@@ -33,20 +71,3 @@ struct MainView_Previews: PreviewProvider {
 
 
 
-
-class APICaller : ObservableObject{
-    
-    func loadData(completion:@escaping (AIPResponse) -> ()) {
-        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/group?id=2158177,2147714&appid=d36df9373c1eb937af289bc9b4685c80") else {
-            print("Invalid url...")
-            return
-        }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            let decodeResult = try! JSONDecoder().decode(AIPResponse.self, from: data!)
-                        DispatchQueue.main.async {
-                            completion(decodeResult)
-                        }
-        }.resume()
-        
-    }
-}

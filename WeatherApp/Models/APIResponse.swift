@@ -1,5 +1,5 @@
 //
-//  Weather.swift
+//  APIResponse.swift
 //  WeatherApp
 //
 //  Created by Yang W on 7/9/21.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// api response
-struct AIPResponse: Codable {
+struct APIResponse: Codable {
     var cnt: Int
     var list: [DataList]
 }

@@ -23,6 +23,7 @@
 		DAADA5A826E734A60092D913 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5A726E734A60092D913 /* WeatherViewModel.swift */; };
 		DAADA5AA26E734D90092D913 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5A926E734D90092D913 /* ViewController.swift */; };
 		DAADA5AD26E74A320092D913 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5AC26E74A320092D913 /* Weather.swift */; };
+		DAADA5B026E74DA30092D913 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA5AF26E74DA30092D913 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		DAADA5A726E734A60092D913 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		DAADA5A926E734D90092D913 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DAADA5AC26E74A320092D913 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		DAADA5AF26E74DA30092D913 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 			children = (
 				DAADA5A526E7349C0092D913 /* CityViewModel.swift */,
 				DAADA5A726E734A60092D913 /* WeatherViewModel.swift */,
+				DAADA5AE26E74D880092D913 /* Services */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -190,6 +193,14 @@
 				DAADA5A926E734D90092D913 /* ViewController.swift */,
 			);
 			path = ViewControl;
+			sourceTree = "<group>";
+		};
+		DAADA5AE26E74D880092D913 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DAADA5AF26E74DA30092D913 /* NetworkManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +335,7 @@
 				DAADA5A426E7348B0092D913 /* APIResponse.swift in Sources */,
 				DAADA59C26E7341D0092D913 /* CitySearchView.swift in Sources */,
 				DAADA5A026E7344B0092D913 /* WeatherCardView.swift in Sources */,
+				DAADA5B026E74DA30092D913 /* NetworkManager.swift in Sources */,
 				DAADA56E26E733840092D913 /* ContentView.swift in Sources */,
 				DAADA5AD26E74A320092D913 /* Weather.swift in Sources */,
 				DAADA5AA26E734D90092D913 /* ViewController.swift in Sources */,
