@@ -3,13 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		DA3BB26126E86A8500EB99ED /* HeaderChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BB26026E86A8500EB99ED /* HeaderChildView.swift */; };
 		DA3BB26326E871DE00EB99ED /* PageControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BB26226E871DE00EB99ED /* PageControlViewModel.swift */; };
 		DA3BB26626E8851500EB99ED /* city list.json in Resources */ = {isa = PBXBuildFile; fileRef = DA3BB26526E8851500EB99ED /* city list.json */; };
+		DA3BB26C26E8967700EB99ED /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = DA3BB26B26E8967700EB99ED /* SQLite */; };
+		DA3BB26E26E8C6E400EB99ED /* cityList.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = DA3BB26D26E8C6E400EB99ED /* cityList.sqlite3 */; };
+		DA3BB26F26E8C6E400EB99ED /* cityList.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = DA3BB26D26E8C6E400EB99ED /* cityList.sqlite3 */; };
+		DA3BB27026E8C6E400EB99ED /* cityList.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = DA3BB26D26E8C6E400EB99ED /* cityList.sqlite3 */; };
 		DAADA56C26E733840092D913 /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA56B26E733840092D913 /* WeatherAppApp.swift */; };
 		DAADA56E26E733840092D913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA56D26E733840092D913 /* ContentView.swift */; };
 		DAADA57026E733850092D913 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAADA56F26E733850092D913 /* Assets.xcassets */; };
@@ -52,6 +56,7 @@
 		DA3BB26026E86A8500EB99ED /* HeaderChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderChildView.swift; sourceTree = "<group>"; };
 		DA3BB26226E871DE00EB99ED /* PageControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlViewModel.swift; sourceTree = "<group>"; };
 		DA3BB26526E8851500EB99ED /* city list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "city list.json"; sourceTree = "<group>"; };
+		DA3BB26D26E8C6E400EB99ED /* cityList.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cityList.sqlite3; sourceTree = "<group>"; };
 		DAADA56826E733840092D913 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAADA56B26E733840092D913 /* WeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppApp.swift; sourceTree = "<group>"; };
 		DAADA56D26E733840092D913 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -84,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3BB26C26E8967700EB99ED /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,12 +119,13 @@
 			path = "Custom View";
 			sourceTree = "<group>";
 		};
-		DA3BB26426E8850B00EB99ED /* JSON Data */ = {
+		DA3BB26426E8850B00EB99ED /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DA3BB26D26E8C6E400EB99ED /* cityList.sqlite3 */,
 				DA3BB26526E8851500EB99ED /* city list.json */,
 			);
-			path = "JSON Data";
+			path = Data;
 			sourceTree = "<group>";
 		};
 		DAADA55F26E733840092D913 = {
@@ -150,7 +157,7 @@
 				DAADA59626E733990092D913 /* Views */,
 				DAADA59826E733AF0092D913 /* ViewModels */,
 				DAADA59726E733A40092D913 /* Models */,
-				DA3BB26426E8850B00EB99ED /* JSON Data */,
+				DA3BB26426E8850B00EB99ED /* Data */,
 				DAADA56F26E733850092D913 /* Assets.xcassets */,
 				DAADA57426E733850092D913 /* Info.plist */,
 				DAADA57126E733850092D913 /* Preview Content */,
@@ -250,6 +257,9 @@
 			dependencies = (
 			);
 			name = WeatherApp;
+			packageProductDependencies = (
+				DA3BB26B26E8967700EB99ED /* SQLite */,
+			);
 			productName = WeatherApp;
 			productReference = DAADA56826E733840092D913 /* WeatherApp.app */;
 			productType = "com.apple.product-type.application";
@@ -321,6 +331,9 @@
 				Base,
 			);
 			mainGroup = DAADA55F26E733840092D913;
+			packageReferences = (
+				DA3BB26A26E8967700EB99ED /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+			);
 			productRefGroup = DAADA56926E733840092D913 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -337,6 +350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3BB26E26E8C6E400EB99ED /* cityList.sqlite3 in Resources */,
 				DAADA57326E733850092D913 /* Preview Assets.xcassets in Resources */,
 				DAADA57026E733850092D913 /* Assets.xcassets in Resources */,
 				DA3BB26626E8851500EB99ED /* city list.json in Resources */,
@@ -347,6 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3BB26F26E8C6E400EB99ED /* cityList.sqlite3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3BB27026E8C6E400EB99ED /* cityList.sqlite3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +712,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA3BB26A26E8967700EB99ED /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.13.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA3BB26B26E8967700EB99ED /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA3BB26A26E8967700EB99ED /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DAADA56026E733840092D913 /* Project object */;
 }

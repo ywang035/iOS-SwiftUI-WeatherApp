@@ -12,11 +12,11 @@ struct City: Codable, Hashable {
     var name: String
     var state: String
     var country: String
-    var coord: CityCoordinator
+    var coord: CityCoordinator?
 }
 
 
 struct CityCoordinator: Codable, Hashable {
-    var lon: Double
-    var lat: Double
+    var lon: Double?
+    var lat: Double?
 }
