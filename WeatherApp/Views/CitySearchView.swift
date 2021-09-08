@@ -13,11 +13,24 @@ struct CitySearchView: View {
     
     @ObservedObject var weatherDataVM: WeatherDataViewModel
     
+    @ObservedObject var cityVM = CityViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .onTapGesture {
-                presentationMode.wrappedValue.dismiss()
+        VStack(spacing: 0){
+            
+            HeaderChildView(buttonFunction: {presentationMode.wrappedValue.dismiss()})
+            
+            VStack{
+                
+                
+                
             }
+        }
+        .onAppear(){
+            DispatchQueue.global(qos: .userInteractive).async {
+                cityVM.cityList = cityVM.loadTipData(jsonData: cityVM.readLocalFile()!)
+            }
+        }
     }
 }
 

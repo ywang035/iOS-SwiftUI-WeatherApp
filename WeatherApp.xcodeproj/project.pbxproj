@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA3BB26126E86A8500EB99ED /* HeaderChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BB26026E86A8500EB99ED /* HeaderChildView.swift */; };
 		DA3BB26326E871DE00EB99ED /* PageControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BB26226E871DE00EB99ED /* PageControlViewModel.swift */; };
+		DA3BB26626E8851500EB99ED /* city list.json in Resources */ = {isa = PBXBuildFile; fileRef = DA3BB26526E8851500EB99ED /* city list.json */; };
 		DAADA56C26E733840092D913 /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA56B26E733840092D913 /* WeatherAppApp.swift */; };
 		DAADA56E26E733840092D913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADA56D26E733840092D913 /* ContentView.swift */; };
 		DAADA57026E733850092D913 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAADA56F26E733850092D913 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		DA3BB26026E86A8500EB99ED /* HeaderChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderChildView.swift; sourceTree = "<group>"; };
 		DA3BB26226E871DE00EB99ED /* PageControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlViewModel.swift; sourceTree = "<group>"; };
+		DA3BB26526E8851500EB99ED /* city list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "city list.json"; sourceTree = "<group>"; };
 		DAADA56826E733840092D913 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAADA56B26E733840092D913 /* WeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppApp.swift; sourceTree = "<group>"; };
 		DAADA56D26E733840092D913 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,14 @@
 			path = "Custom View";
 			sourceTree = "<group>";
 		};
+		DA3BB26426E8850B00EB99ED /* JSON Data */ = {
+			isa = PBXGroup;
+			children = (
+				DA3BB26526E8851500EB99ED /* city list.json */,
+			);
+			path = "JSON Data";
+			sourceTree = "<group>";
+		};
 		DAADA55F26E733840092D913 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +150,7 @@
 				DAADA59626E733990092D913 /* Views */,
 				DAADA59826E733AF0092D913 /* ViewModels */,
 				DAADA59726E733A40092D913 /* Models */,
+				DA3BB26426E8850B00EB99ED /* JSON Data */,
 				DAADA56F26E733850092D913 /* Assets.xcassets */,
 				DAADA57426E733850092D913 /* Info.plist */,
 				DAADA57126E733850092D913 /* Preview Content */,
@@ -328,6 +339,7 @@
 			files = (
 				DAADA57326E733850092D913 /* Preview Assets.xcassets in Resources */,
 				DAADA57026E733850092D913 /* Assets.xcassets in Resources */,
+				DA3BB26626E8851500EB99ED /* city list.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
