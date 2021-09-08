@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeatherCardView: View {
     
+    var weatherDataVM: WeatherDataViewModel
     var weather: Weather
     
     var body: some View {
@@ -27,9 +28,10 @@ struct WeatherCardView: View {
                 Image("\(weather.weatherIcon)")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 60, height: 60)
+                    .frame(width: 50, height: 50)
                 
-                Text("\(weather.temperature, specifier: "%.2f")°C")
+                Text("\(weather.temperature, specifier: "%.2f")°\(weatherDataVM.tempUnitCelsius ? "C" : "F")")
+                    .frame(width: 80)
                     .foregroundColor(Color("orange"))
                 
                 Image(systemName: "chevron.right")
@@ -47,6 +49,6 @@ struct WeatherCardView: View {
 
 struct WeatherCardView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherCardView(weather: Weather(weatherDescription: "Sun", weatherIcon: "01d", temperature: 20.5, tempMin: 10.5, tempMax: 30.5, pressure: 100, humidity: 200, windSpeed: 30, windDegree: 45, visibility: 1000, cityName: "Melbourne", countryName: "AU"))
+        WeatherCardView(weatherDataVM: WeatherDataViewModel(), weather: Weather(weatherDescription: "Sun", weatherIcon: "01d", temperature: 20.5, tempMin: 10.5, tempMax: 30.5, pressure: 100, humidity: 200, windSpeed: 30, windDegree: 45, visibility: 1000, cityName: "Melbourne", countryName: "AU"))
     }
 }

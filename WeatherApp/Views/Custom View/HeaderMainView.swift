@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct HeaderView: View {
+struct HeaderMainView: View {
     
-    @ObservedObject var weatherVM: WeatherViewModel
+    @ObservedObject var weatherDataVM: WeatherDataViewModel
+    
+    @State var showSearchView = false
     
     var body: some View {
         VStack(spacing: 0){
@@ -24,10 +26,10 @@ struct HeaderView: View {
                 
                 
                 Button(action: {
-                    weatherVM.tempUnit = "metric"
-                    weatherVM.cityIDs = "2174003"
+                    weatherDataVM.tempUnit = "metric"
+                    weatherDataVM.cityIDs = "2174003"
 
-                    weatherVM.prepareWeatherDara(unit: weatherVM.tempUnit, cityIDs: weatherVM.cityIDs)
+                    weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
                 }, label: {
                     Image(systemName: "goforward")
                         .renderingMode(.template)
@@ -38,7 +40,9 @@ struct HeaderView: View {
                 })
                 .padding(10)
                     
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    showSearchView = true
+                }, label: {
                     Image(systemName: "plus.magnifyingglass")
                         .renderingMode(.template)
                         .resizable()
@@ -47,8 +51,9 @@ struct HeaderView: View {
                         .foregroundColor(Color("orange"))
                 })
                 .padding(10)
-                
-                    
+                .fullScreenCover(isPresented: $showSearchView, content: {
+                    CitySearchView(weatherDataVM: weatherDataVM)
+                })
             }
             .frame(height: 50)
             .padding()
@@ -64,6 +69,6 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView(weatherVM: WeatherViewModel())
+        HeaderMainView(weatherDataVM: WeatherDataViewModel())
     }
 }

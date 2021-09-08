@@ -7,11 +7,14 @@
 
 import Foundation
 
-class WeatherViewModel: ObservableObject {
+class WeatherDataViewModel: ObservableObject {
     
     @Published var weatherList = [Weather]()
     @Published var fetchDataStatus: FetchDataStatus = .notFetching
     @Published var fetchFail = false
+    
+    var selectedCityWeather: Weather?
+    var tempUnitCelsius = true
     
     var tempUnit: String = "metric"
     var cityIDs: String = ""
@@ -25,6 +28,8 @@ class WeatherViewModel: ObservableObject {
         }
     }
     
+    
+    /// fetch data from API and append useful weather data
     func prepareWeatherDara(unit: String, cityIDs: String) {
         
         self.fetchDataStatus = .startFetching

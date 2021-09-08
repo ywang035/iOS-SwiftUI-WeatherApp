@@ -9,44 +9,43 @@ import SwiftUI
 
 struct MainView: View {
     
-    @ObservedObject var weatherVM = WeatherViewModel()
+    @ObservedObject var weatherDataVM = WeatherDataViewModel()
     
     var body: some View {
         
         VStack{
             // MARK: - header
-            HeaderView(weatherVM: weatherVM)
+            HeaderMainView(weatherDataVM: weatherDataVM)
             
             // MARK: - main section
-            if weatherVM.fetchDataStatus == .finishFetching {
-                
-                if weatherVM.fetchFail {
+            switch weatherDataVM.fetchDataStatus {
+            
+            case .finishFetching:
+                if weatherDataVM.fetchFail {
                     Text("Data not available.\nCome back later.")
                         .frame(maxHeight: .infinity)
                         .foregroundColor(Color("orange"))
                         .multilineTextAlignment(.center)
                 } else {
-                    
-                    WeatherListView(weatherVM: weatherVM)
-                    
+                    WeatherListView(weatherDataVM: weatherDataVM)
                 }
                 
-            } else if weatherVM.fetchDataStatus == .notFetching {
-                Text("welcome")
-                    .frame(maxHeight: .infinity)
-            }
-            else {
+            case .startFetching:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color("orange")))
                     .scaleEffect(2)
                     .frame(maxHeight: .infinity)
+                
+            case .notFetching:
+                Text("welcome")
+                    .frame(maxHeight: .infinity)
             }
         }
         .onAppear(){
-            weatherVM.tempUnit = "metric"
-            weatherVM.cityIDs = "2158177,2147714,2174003"
-
-            weatherVM.prepareWeatherDara(unit: weatherVM.tempUnit, cityIDs: weatherVM.cityIDs)
+            weatherDataVM.tempUnit = "metric"
+            weatherDataVM.cityIDs = "2158177,2147714,2174003"
+            
+            weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
         }
     }
 }
