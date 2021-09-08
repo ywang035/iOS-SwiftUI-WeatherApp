@@ -27,7 +27,7 @@ struct HeaderMainView: View {
                 
                 Button(action: {
                     weatherDataVM.tempUnit = "metric"
-                    weatherDataVM.cityIDs = "2174003"
+                    print(weatherDataVM.cityIDs)
 
                     weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
                 }, label: {

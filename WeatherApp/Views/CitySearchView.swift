@@ -16,67 +16,103 @@ struct CitySearchView: View {
     @ObservedObject var cityVM = CityViewModel()
     
     @State var searchTerm = ""
-    @State var loading = false
+    @State var searchLoading = false
+    @State var searchAddAlert = false
     
     var body: some View {
         VStack(spacing: 0){
             
             HeaderChildView(buttonFunction: {presentationMode.wrappedValue.dismiss()})
             
-            VStack{
-                // search box and button
-                HStack(spacing: 15){
-                    TextField("Enter City", text: $searchTerm)
-                        .padding(.horizontal)
-                        .frame(height: 40)
-                        .background(RoundedRectangle(cornerRadius: 20).stroke(Color("orange"), lineWidth: 1.5))
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                    
-                    
-                    Text("Search")
-                        .bold()
-                        .padding()
-                        .frame(height: 40)
-                        .foregroundColor(Color.white)
-                        .background(Color("orange"))
-                        .cornerRadius(25)
-                        .onTapGesture {
-                            loading = true
-                            cityVM.searchCity(searchTerm: searchTerm, completion: { results in
-                                
-                                cityVM.citySearchResult = results
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-                                    loading = false
+            ZStack{
+                VStack{
+                    // search box and button
+                    HStack(spacing: 15){
+                        TextField("Enter City", text: $searchTerm)
+                            .padding(.horizontal)
+                            .frame(height: 40)
+                            .background(RoundedRectangle(cornerRadius: 20).stroke(Color("orange"), lineWidth: 1.5))
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                        
+                        
+                        Text("Search")
+                            .bold()
+                            .padding()
+                            .frame(height: 40)
+                            .foregroundColor(Color.white)
+                            .background(Color("orange"))
+                            .cornerRadius(25)
+                            .onTapGesture {
+                                searchLoading = true
+                                cityVM.searchCity(searchTerm: searchTerm, completion: { results in
+                                    cityVM.citySearchResult = results
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+                                        searchLoading = false
+                                    })
                                 })
-                                
-                            })
-                        }
-                }
-                .padding(.horizontal)
-                
-                if loading {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("orange")))
-                        .scaleEffect(1.5)
-                        .frame(maxHeight: .infinity, alignment: .top)
-                        .padding()
-                } else {
-                    ScrollView{
-                        LazyVStack{
-                            ForEach(cityVM.citySearchResult, id: \.self){ city in
-                                Text("\(city.name), \(city.country)")
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding()
+                            }
+                    }
+                    .padding(.horizontal)
+                    
+                    
+                    // main search result list
+                    if searchLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color("orange")))
+                            .scaleEffect(1.5)
+                            .frame(maxHeight: .infinity, alignment: .top)
+                            .padding()
+                    } else {
+                        ScrollView{
+                            LazyVStack{
+                                ForEach(cityVM.citySearchResult, id: \.self){ city in
+                                    
+                                    HStack{
+                                        Text("\(city.name), \(city.country)")
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding()
+                                        Spacer()
+                                        Button(action: {
+                                            withAnimation{ searchAddAlert = true }
+                                            
+                                            weatherDataVM.cityIDs += ",\(city.id)"
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
+                                                withAnimation{ searchAddAlert = false }
+                                            })
+                                        }, label: {
+                                            Image(systemName: "plus.circle")
+                                                .foregroundColor(Color("orange"))
+                                                .padding()
+                                        })
+                                    }
+                                    .padding(.horizontal)
+                                }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
-                    
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                
+                if searchAddAlert {
+                    VStack{
+                        Text("City Added")
+                            .bold()
+                            .padding()
+                            .frame(height: 40)
+                            .foregroundColor(Color.white)
+                            .background(Color("orange"))
+                            .cornerRadius(25)
+                            .padding()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
 
         }
     }

@@ -41,12 +41,9 @@ struct MainView: View {
                     .frame(maxHeight: .infinity)
             }
         }
-        .onAppear(){
-            weatherDataVM.tempUnit = "metric"
-            weatherDataVM.cityIDs = "2158177,2147714,2174003"
-            
+        .onReceive(weatherDataVM.$cityIDs, perform: { _ in
             weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
-        }
+        })
     }
 }
 

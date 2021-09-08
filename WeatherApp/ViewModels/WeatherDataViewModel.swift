@@ -17,7 +17,7 @@ class WeatherDataViewModel: ObservableObject {
     var tempUnitCelsius = true
     
     var tempUnit: String = "metric"
-    var cityIDs: String = ""
+    @Published var cityIDs: String = "2158177,2147714,2174003"
     
     var fetchDataTimer : Timer?
     
