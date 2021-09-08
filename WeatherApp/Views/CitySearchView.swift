@@ -68,7 +68,6 @@ struct CitySearchView: View {
                         ScrollView{
                             LazyVStack{
                                 ForEach(cityVM.citySearchResult, id: \.self){ city in
-                                    
                                     HStack{
                                         Text("\(city.name), \(city.country)")
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,16 +77,20 @@ struct CitySearchView: View {
                                             withAnimation{ searchAddAlert = true }
                                             
                                             weatherDataVM.cityIDs += ",\(city.id)"
+                                            searchTerm = ""
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
                                                 withAnimation{ searchAddAlert = false }
                                             })
                                         }, label: {
                                             Image(systemName: "plus.circle")
+                                                .resizable()
+                                                .scaledToFit()
                                                 .foregroundColor(Color("orange"))
-                                                .padding()
+                                                .padding(5)
                                         })
                                     }
+                                    .frame(height: 40)
                                     .padding(.horizontal)
                                 }
                             }

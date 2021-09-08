@@ -36,6 +36,7 @@ struct WeatherDetailView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 100, height: 100)
+                                .shadow(color: Color("orange"), radius: 15)
                             
                             Text("\(weatherDataVM.selectedCityWeather?.weatherDescription ?? "---")")
                                 .bold()

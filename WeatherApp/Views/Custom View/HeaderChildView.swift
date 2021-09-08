@@ -15,7 +15,7 @@ struct HeaderChildView: View {
         HStack {
             HStack{
                 Image(systemName: "chevron.left")
-                Text("Go Back")
+                Text("Back")
             }
             .onTapGesture {
                 buttonFunction()

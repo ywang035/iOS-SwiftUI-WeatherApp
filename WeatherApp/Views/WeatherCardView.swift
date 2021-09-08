@@ -29,6 +29,7 @@ struct WeatherCardView: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 50, height: 50)
+                    .shadow(color: Color("orange"), radius: 5)
                 
                 Text("\(weather.temperature, specifier: "%.2f")°\(weatherDataVM.tempUnitCelsius ? "C" : "F")")
                     .frame(width: 80)
