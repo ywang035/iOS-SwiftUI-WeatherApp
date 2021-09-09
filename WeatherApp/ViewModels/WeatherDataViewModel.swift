@@ -12,12 +12,14 @@ class WeatherDataViewModel: ObservableObject {
     @Published var weatherList = [Weather]()
     @Published var fetchDataStatus: FetchDataStatus = .notFetching
     @Published var fetchFail = false
+    @Published var cityIDs: String = ""
     
     var selectedCityWeather: Weather?
-    var tempUnitCelsius = true
+    var selectedCityIndex: Int = -1
+    var tempUnitCelsius = UserDefaults.standard.bool(forKey: "TEMP_UNIT") //true
     
     var tempUnit: String = "metric"
-    @Published var cityIDs: String = "2158177,2147714,2174003"
+    var cityIDList = ["2158177", "2147714" ,"2174003"]
     
     var fetchDataTimer : Timer?
     
@@ -28,6 +30,11 @@ class WeatherDataViewModel: ObservableObject {
         }
     }
     
+    init(){
+        self.cityIDs = self.cityIDList.joined(separator: ",")
+        tempUnit = tempUnitCelsius ? "metric" : "imperial"
+        
+    }
     
     /// fetch data from API and append useful weather data
     func prepareWeatherDara(unit: String, cityIDs: String) {
@@ -62,4 +69,8 @@ class WeatherDataViewModel: ObservableObject {
         }
     }
     
+    
+    func saveTempUnit(){
+        UserDefaults.standard.set(tempUnitCelsius, forKey: "TEMP_UNIT")
+    }
 }

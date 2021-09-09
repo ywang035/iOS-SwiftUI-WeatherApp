@@ -22,7 +22,7 @@ struct CitySearchView: View {
     var body: some View {
         VStack(spacing: 0){
             
-            HeaderChildView(buttonFunction: {presentationMode.wrappedValue.dismiss()})
+            HeaderChildView(leadingButtonFunction: {presentationMode.wrappedValue.dismiss()}, showtrailingButton: false)
             
             ZStack{
                 VStack{
@@ -76,7 +76,8 @@ struct CitySearchView: View {
                                         Button(action: {
                                             withAnimation{ searchAddAlert = true }
                                             
-                                            weatherDataVM.cityIDs += ",\(city.id)"
+                                            weatherDataVM.cityIDList.append("\(city.id)")
+                                            weatherDataVM.cityIDs = weatherDataVM.cityIDList.joined(separator: ",")
                                             searchTerm = ""
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {

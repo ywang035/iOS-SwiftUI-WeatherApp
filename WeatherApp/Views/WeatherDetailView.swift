@@ -13,65 +13,117 @@ struct WeatherDetailView: View {
     
     @ObservedObject var weatherDataVM: WeatherDataViewModel
     
+    @State var showWeatherDetail = false
+    @State var showDeleteCityAlert = false
+    @State var deleteCityConfirmed = false
+    
     var body: some View {
         VStack(spacing: 0){
             // header
-            HeaderChildView(buttonFunction: {presentationMode.wrappedValue.dismiss()})
-            
-            ZStack{
-                Color("gray").opacity(0.75)
+            HStack {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    HStack{
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                })
                 
-                ScrollView(showsIndicators: false){
-                    VStack{
-                        
-                        Text("\(weatherDataVM.selectedCityWeather?.cityName ?? "---"), \(weatherDataVM.selectedCityWeather?.countryName ?? "---")".uppercased())
-                            .font(.title)
-                            .bold()
-                            .tracking(2)
-                            .foregroundColor(Color("orange"))
-                        
-                        
-                        VStack(spacing: 0){
-                            Image("\(weatherDataVM.selectedCityWeather?.weatherIcon ?? "---")")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 100, height: 100)
-                                .shadow(color: Color("orange"), radius: 15)
-                            
-                            Text("\(weatherDataVM.selectedCityWeather?.weatherDescription ?? "---")")
-                                .bold()
-                                .foregroundColor(Color("orange"))
-                                .offset(y: -15)
-                            
-                            Text("\(weatherDataVM.selectedCityWeather?.temperature ?? 0.00, specifier: "%.2f") °\(weatherDataVM.tempUnitCelsius ? "C" : "F")")
-                                .font(.system(size: 56))
-                                .bold()
-                                .foregroundColor(Color("orange"))
-                        }
-                        
+                Spacer()
+                
+                Button(action: {
+                    showDeleteCityAlert = true
+                }, label: {
+                    Image(systemName: "trash.circle")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 25)
+                        .foregroundColor(Color("orange"))
+                })
+            }
+            .frame(height: 50)
+            .foregroundColor(Color("orange"))
+            .padding(.horizontal)
+            .alert(isPresented: $showDeleteCityAlert, content: {
+                Alert(
+                    title: Text("Remove this city?"),
+                    message: Text("You can add this city back later."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        deleteCityConfirmed = true
+                        presentationMode.wrappedValue.dismiss()
+                    },
+                    secondaryButton: .cancel()
+                )
+            })
+            
+            
+                ZStack{
+                    Color("gray").opacity(0.75)
+                    
+                    if showWeatherDetail {
+                        ScrollView(showsIndicators: false){
                         VStack{
                             
-                            WeatherDetailViewCard(cardName: "Temp Range", cardData: "\(weatherDataVM.selectedCityWeather?.tempMin ?? 0.00) ~ \(weatherDataVM.selectedCityWeather?.tempMax ?? 0.00) °\(weatherDataVM.tempUnitCelsius ? "C" : "F")")
+                            Text("\(weatherDataVM.selectedCityWeather?.cityName ?? "---"), \(weatherDataVM.selectedCityWeather?.countryName ?? "---")".uppercased())
+                                .font(.title)
+                                .bold()
+                                .tracking(2)
+                                .foregroundColor(Color("orange"))
                             
-                            WeatherDetailViewCard(cardName: "Pressure", cardData: "\(weatherDataVM.selectedCityWeather?.pressure ?? 0)")
                             
-                            WeatherDetailViewCard(cardName: "Humidity", cardData: "\(weatherDataVM.selectedCityWeather?.humidity ?? 0)")
+                            VStack(spacing: 0){
+                                Image("\(weatherDataVM.selectedCityWeather?.weatherIcon ?? "---")")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100)
+                                    .shadow(color: Color("orange"), radius: 15)
+                                
+                                Text("\(weatherDataVM.selectedCityWeather?.weatherDescription ?? "---")")
+                                    .bold()
+                                    .foregroundColor(Color("orange"))
+                                    .offset(y: -15)
+                                
+                                Text("\(weatherDataVM.selectedCityWeather?.temperature ?? 0.00, specifier: "%.2f") °\(weatherDataVM.tempUnitCelsius ? "C" : "F")")
+                                    .font(.system(size: 56))
+                                    .bold()
+                                    .foregroundColor(Color("orange"))
+                            }
                             
-                            WeatherDetailViewCard(cardName: "Wind Speed", cardData: "\(weatherDataVM.selectedCityWeather?.windSpeed ?? 0)")
-                            
-                            WeatherDetailViewCard(cardName: "Wind Degree", cardData: "\(weatherDataVM.selectedCityWeather?.windDegree ?? 0)")
-                            
-                            WeatherDetailViewCard(cardName: "Visibility", cardData: "\(weatherDataVM.selectedCityWeather?.visibility ?? 0)")
-                            
+                            VStack{
+                                WeatherDetailViewCard(cardName: "Temp Range", cardData: "\(weatherDataVM.selectedCityWeather?.tempMin ?? 0.00) ~ \(weatherDataVM.selectedCityWeather?.tempMax ?? 0.00) °\(weatherDataVM.tempUnitCelsius ? "C" : "F")")
+                                
+                                WeatherDetailViewCard(cardName: "Pressure", cardData: "\(weatherDataVM.selectedCityWeather?.pressure ?? 0)")
+                                
+                                WeatherDetailViewCard(cardName: "Humidity", cardData: "\(weatherDataVM.selectedCityWeather?.humidity ?? 0)")
+                                
+                                WeatherDetailViewCard(cardName: "Wind Speed", cardData: "\(weatherDataVM.selectedCityWeather?.windSpeed ?? 0)")
+                                
+                                WeatherDetailViewCard(cardName: "Wind Degree", cardData: "\(weatherDataVM.selectedCityWeather?.windDegree ?? 0)")
+                                
+                                WeatherDetailViewCard(cardName: "Visibility", cardData: "\(weatherDataVM.selectedCityWeather?.visibility ?? 0)")
+                            }
                         }
+                        .padding()
                     }
-                    .padding()
+                    }
                 }
-
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .cornerRadius(8)
+                .padding()
+            
+        }
+        .onAppear(){
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+                withAnimation { showWeatherDetail = true }
+            })
+        }
+        .onDisappear(){
+            if deleteCityConfirmed {
+                weatherDataVM.cityIDList.remove(at: weatherDataVM.selectedCityIndex)
+                weatherDataVM.cityIDs = weatherDataVM.cityIDList.joined(separator: ",")
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .cornerRadius(8)
-            .padding()
         }
     }
 }
@@ -83,27 +135,3 @@ struct DetailView_Previews: PreviewProvider {
 }
 
 
-struct WeatherDetailViewCard: View {
-    
-    var cardName: String
-    var cardData: String
-    
-    var body: some View {
-        ZStack{
-            Color("orange").opacity(0.8)
-            
-            HStack{
-                Text(cardName)
-                    .bold()
-                Spacer()
-                Text(cardData)
-                    .bold()
-            }
-            .foregroundColor(Color("gray"))
-            .padding(.horizontal)
-        }
-        .frame(height: 50)
-        .frame(maxWidth: .infinity)
-        .cornerRadius(8)
-    }
-}

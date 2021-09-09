@@ -17,11 +17,12 @@ struct WeatherListView: View {
         
         ScrollView{
             VStack{
-                ForEach(weatherDataVM.weatherList, id: \.self){ cityWeather in
+                ForEach(Array(zip(weatherDataVM.weatherList, weatherDataVM.weatherList.indices)), id: \.0){ cityWeather, index in
                     WeatherCardView(weatherDataVM: weatherDataVM, weather: cityWeather)
                         .onTapGesture {
                             showWeatherDetail = true
                             weatherDataVM.selectedCityWeather = cityWeather
+                            weatherDataVM.selectedCityIndex = index
                         }
                         .fullScreenCover(isPresented: $showWeatherDetail, content: {
                             WeatherDetailView(weatherDataVM: weatherDataVM)

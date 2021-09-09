@@ -37,12 +37,17 @@ struct MainView: View {
                     .frame(maxHeight: .infinity)
                 
             case .notFetching:
-                Text("welcome")
+                Text("Add Cities")
                     .frame(maxHeight: .infinity)
+                    .foregroundColor(Color("orange"))
             }
         }
         .onReceive(weatherDataVM.$cityIDs, perform: { _ in
-            weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
+            if weatherDataVM.cityIDs.count > 0{
+                weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
+            } else {
+                weatherDataVM.fetchDataStatus = .notFetching
+            }
         })
     }
 }
