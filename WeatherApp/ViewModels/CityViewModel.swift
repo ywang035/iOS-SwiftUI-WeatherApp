@@ -19,14 +19,17 @@ class CityViewModel: ObservableObject {
     
     init(){
         do {
+            
             let path = Bundle.main.path(forResource: "cityList", ofType: "sqlite3")!
             self.cityListDB = try Connection(path, readonly: true)
+            
         } catch {
             print("error")
         }
         
     }
 
+    
     /// read city list.json file
     func readLocalFile() -> Data? {
         do {
@@ -40,6 +43,7 @@ class CityViewModel: ObservableObject {
         }
         return nil
     }
+    
     
     /// read city data from json
     func loadCityData(jsonData: Data) -> [City]{
@@ -60,7 +64,7 @@ class CityViewModel: ObservableObject {
         do {
             let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
              
-                        // creating database connection
+            // creating database connection
             cityListDB = try Connection("\(path)/cityList.sqlite3")
 
             let citys = Table("Citys")
@@ -78,7 +82,6 @@ class CityViewModel: ObservableObject {
                 t.column(cityID)
             })
 
-            
             for city in cityList {
                 let insert = citys.insert(name <- city.name, state <- city.state, country <- city.country, cityID <- city.id)
                 _ = try cityListDB.run(insert)
@@ -90,6 +93,7 @@ class CityViewModel: ObservableObject {
             print (error)
         }
     }
+    
     
     /// return count of default table
     func getTableRowCount() -> Int{
@@ -152,5 +156,5 @@ class CityViewModel: ObservableObject {
                 print (error)
             }
         }
-    }
+    }    
 }

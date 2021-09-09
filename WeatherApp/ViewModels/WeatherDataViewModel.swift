@@ -16,12 +16,13 @@ class WeatherDataViewModel: ObservableObject {
     
     var selectedCityWeather: Weather?
     var selectedCityIndex: Int = -1
-    var tempUnitCelsius = UserDefaults.standard.bool(forKey: "TEMP_UNIT") //true
     
+    var tempUnitCelsius: Bool = true
     var tempUnit: String = "metric"
-    var cityIDList = ["2158177", "2147714" ,"2174003"]
+    var cityIDList: [String] = [String]()
     
     var fetchDataTimer : Timer?
+    var autoRefreshTimeInterval: Double = 1800
     
     enum FetchDataStatus: Identifiable {
         case  notFetching ,startFetching, finishFetching
@@ -31,14 +32,17 @@ class WeatherDataViewModel: ObservableObject {
     }
     
     init(){
+        // init city list
+        self.cityIDList = isKeyPresentInUserDefaults(key: "SAVED_CITY_LIST") ? UserDefaults.standard.object(forKey: "SAVED_CITY_LIST") as! [String] : ["2158177", "2147714" ,"2174003"]
         self.cityIDs = self.cityIDList.joined(separator: ",")
-        tempUnit = tempUnitCelsius ? "metric" : "imperial"
         
+        // init temp unit
+        tempUnitCelsius = isKeyPresentInUserDefaults(key: "TEMP_UNIT") ? UserDefaults.standard.bool(forKey: "TEMP_UNIT") : true
+        tempUnit = tempUnitCelsius ? "metric" : "imperial"
     }
     
     /// fetch data from API and append useful weather data
     func prepareWeatherDara(unit: String, cityIDs: String) {
-        
         self.fetchDataStatus = .startFetching
         
         NetworkManager().fetchAPIData(unit: unit, cityIDs: cityIDs, completion: { [self] response in
@@ -70,7 +74,18 @@ class WeatherDataViewModel: ObservableObject {
     }
     
     
+    /// save temp unit to user default when changed
     func saveTempUnit(){
         UserDefaults.standard.set(tempUnitCelsius, forKey: "TEMP_UNIT")
+    }
+    
+    /// save city to user default when added / removed
+    func saveCityList(){
+        UserDefaults.standard.set(cityIDList, forKey: "SAVED_CITY_LIST")
+    }
+    
+    /// check if userdefault exist
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
 }

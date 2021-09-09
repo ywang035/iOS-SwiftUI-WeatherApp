@@ -21,9 +21,26 @@ struct CitySearchView: View {
     
     var body: some View {
         VStack(spacing: 0){
+            // MARK: - header
+            HStack {
+                
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    HStack{
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                })
+                
+                Spacer()
+            }
+            .frame(height: 50)
+            .foregroundColor(Color("orange"))
+            .padding(.horizontal)
             
-            HeaderChildView(leadingButtonFunction: {presentationMode.wrappedValue.dismiss()}, showtrailingButton: false)
             
+            // MARK: - main section
             ZStack{
                 VStack{
                     // search box and button
@@ -34,7 +51,6 @@ struct CitySearchView: View {
                             .background(RoundedRectangle(cornerRadius: 20).stroke(Color("orange"), lineWidth: 1.5))
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
-                        
                         
                         Text("Search")
                             .bold()
@@ -76,8 +92,11 @@ struct CitySearchView: View {
                                         Button(action: {
                                             withAnimation{ searchAddAlert = true }
                                             
+                                            // add new to city list and save to user default
                                             weatherDataVM.cityIDList.append("\(city.id)")
                                             weatherDataVM.cityIDs = weatherDataVM.cityIDList.joined(separator: ",")
+                                            weatherDataVM.saveCityList()
+                                            
                                             searchTerm = ""
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
@@ -116,8 +135,6 @@ struct CitySearchView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                 }
             }
-            
-
         }
     }
 }

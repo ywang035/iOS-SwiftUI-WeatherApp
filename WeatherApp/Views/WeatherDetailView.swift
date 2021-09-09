@@ -19,7 +19,7 @@ struct WeatherDetailView: View {
     
     var body: some View {
         VStack(spacing: 0){
-            // header
+            // MARK: - header
             HStack {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
@@ -58,12 +58,12 @@ struct WeatherDetailView: View {
                 )
             })
             
-            
-                ZStack{
-                    Color("gray").opacity(0.75)
-                    
-                    if showWeatherDetail {
-                        ScrollView(showsIndicators: false){
+            // MARK: - main section
+            ZStack{
+                Color("gray").opacity(0.75)
+                
+                if showWeatherDetail {
+                    ScrollView(showsIndicators: false){
                         VStack{
                             
                             Text("\(weatherDataVM.selectedCityWeather?.cityName ?? "---"), \(weatherDataVM.selectedCityWeather?.countryName ?? "---")".uppercased())
@@ -107,11 +107,11 @@ struct WeatherDetailView: View {
                         }
                         .padding()
                     }
-                    }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .cornerRadius(8)
-                .padding()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .cornerRadius(8)
+            .padding()
             
         }
         .onAppear(){
@@ -120,9 +120,11 @@ struct WeatherDetailView: View {
             })
         }
         .onDisappear(){
+            // remove selected city from list and save to userdefault
             if deleteCityConfirmed {
                 weatherDataVM.cityIDList.remove(at: weatherDataVM.selectedCityIndex)
                 weatherDataVM.cityIDs = weatherDataVM.cityIDList.joined(separator: ",")
+                weatherDataVM.saveCityList()
             }
         }
     }

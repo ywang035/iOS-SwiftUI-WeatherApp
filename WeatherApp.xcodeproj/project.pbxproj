@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA3BB26126E86A8500EB99ED /* HeaderChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BB26026E86A8500EB99ED /* HeaderChildView.swift */; };
 		DA3BB26326E871DE00EB99ED /* PageControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BB26226E871DE00EB99ED /* PageControlViewModel.swift */; };
 		DA3BB26626E8851500EB99ED /* city list.json in Resources */ = {isa = PBXBuildFile; fileRef = DA3BB26526E8851500EB99ED /* city list.json */; };
 		DA3BB26C26E8967700EB99ED /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = DA3BB26B26E8967700EB99ED /* SQLite */; };
@@ -54,7 +53,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA3BB26026E86A8500EB99ED /* HeaderChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderChildView.swift; sourceTree = "<group>"; };
 		DA3BB26226E871DE00EB99ED /* PageControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlViewModel.swift; sourceTree = "<group>"; };
 		DA3BB26526E8851500EB99ED /* city list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "city list.json"; sourceTree = "<group>"; };
 		DA3BB26D26E8C6E400EB99ED /* cityList.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cityList.sqlite3; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				DAADA5B326E78FCC0092D913 /* HeaderMainView.swift */,
-				DA3BB26026E86A8500EB99ED /* HeaderChildView.swift */,
 			);
 			path = "Custom View";
 			sourceTree = "<group>";
@@ -158,6 +155,7 @@
 				DAADA5AB26E734E40092D913 /* ViewControl */,
 				DAADA59626E733990092D913 /* Views */,
 				DAADA59826E733AF0092D913 /* ViewModels */,
+				DAADA5AE26E74D880092D913 /* Services */,
 				DAADA59726E733A40092D913 /* Models */,
 				DA3BB26426E8850B00EB99ED /* Data */,
 				DAADA56F26E733850092D913 /* Assets.xcassets */,
@@ -223,7 +221,6 @@
 				DAADA5A526E7349C0092D913 /* CityViewModel.swift */,
 				DAADA5A726E734A60092D913 /* WeatherDataViewModel.swift */,
 				DA3BB26226E871DE00EB99ED /* PageControlViewModel.swift */,
-				DAADA5AE26E74D880092D913 /* Services */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -393,7 +390,6 @@
 				DAADA5AA26E734D90092D913 /* ViewController.swift in Sources */,
 				DA3BB27226E9874600EB99ED /* WeatherDetailViewCard.swift in Sources */,
 				DAADA59A26E734020092D913 /* MainView.swift in Sources */,
-				DA3BB26126E86A8500EB99ED /* HeaderChildView.swift in Sources */,
 				DAADA5A826E734A60092D913 /* WeatherDataViewModel.swift in Sources */,
 				DAADA59E26E734290092D913 /* WeatherDetailView.swift in Sources */,
 				DAADA5B426E78FCC0092D913 /* HeaderMainView.swift in Sources */,

@@ -9,7 +9,11 @@ import SwiftUI
 
 struct MainView: View {
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @ObservedObject var weatherDataVM = WeatherDataViewModel()
+    
+    @State var autoRefreshTimer: Timer?
     
     var body: some View {
         
@@ -37,7 +41,7 @@ struct MainView: View {
                     .frame(maxHeight: .infinity)
                 
             case .notFetching:
-                Text("Add Cities")
+                Text("Add a city to see weather")
                     .frame(maxHeight: .infinity)
                     .foregroundColor(Color("orange"))
             }
@@ -49,6 +53,24 @@ struct MainView: View {
                 weatherDataVM.fetchDataStatus = .notFetching
             }
         })
+        .onAppear(){    // timer to refresh weather
+            autoRefreshTimer = Timer.scheduledTimer(withTimeInterval: weatherDataVM.autoRefreshTimeInterval, repeats: true) { timer in
+                if weatherDataVM.cityIDs.count > 0{
+                    weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
+                } else {
+                    weatherDataVM.fetchDataStatus = .notFetching
+                }
+            }
+        }
+        .onChange(of: scenePhase) { newPhase in // auto refresh when come back to foreground
+            if newPhase == .active {
+                if weatherDataVM.cityIDs.count > 0{
+                    weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
+                } else {
+                    weatherDataVM.fetchDataStatus = .notFetching
+                }
+            }
+        }
     }
 }
 
