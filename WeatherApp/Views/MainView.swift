@@ -46,7 +46,7 @@ struct MainView: View {
                     .foregroundColor(Color("orange"))
             }
         }
-        .onReceive(weatherDataVM.$cityIDs, perform: { _ in
+        .onReceive(weatherDataVM.$cityIDs, perform: { _ in  // auto fetch weather data when city list changed
             if weatherDataVM.cityIDs.count > 0{
                 weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
             } else {
@@ -69,6 +69,17 @@ struct MainView: View {
                 } else {
                     weatherDataVM.fetchDataStatus = .notFetching
                 }
+                
+                autoRefreshTimer = Timer.scheduledTimer(withTimeInterval: weatherDataVM.autoRefreshTimeInterval, repeats: true) { timer in
+                    if weatherDataVM.cityIDs.count > 0{
+                        weatherDataVM.prepareWeatherDara(unit: weatherDataVM.tempUnit, cityIDs: weatherDataVM.cityIDs)
+                    } else {
+                        weatherDataVM.fetchDataStatus = .notFetching
+                    }
+                }
+                
+            } else if newPhase == .inactive {
+                autoRefreshTimer?.invalidate()
             }
         }
     }

@@ -14,6 +14,8 @@ struct WeatherDetailView: View {
     @ObservedObject var weatherDataVM: WeatherDataViewModel
     
     @State var showWeatherDetail = false
+    @State var showIconAnimation = false
+    
     @State var showDeleteCityAlert = false
     @State var deleteCityConfirmed = false
     
@@ -65,20 +67,23 @@ struct WeatherDetailView: View {
                 if showWeatherDetail {
                     ScrollView(showsIndicators: false){
                         VStack{
-                            
                             Text("\(weatherDataVM.selectedCityWeather?.cityName ?? "---"), \(weatherDataVM.selectedCityWeather?.countryName ?? "---")".uppercased())
                                 .font(.title)
                                 .bold()
                                 .tracking(2)
                                 .foregroundColor(Color("orange"))
                             
-                            
+                            // main weather information
                             VStack(spacing: 0){
+                                VStack{
                                 Image("\(weatherDataVM.selectedCityWeather?.weatherIcon ?? "---")")
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 100, height: 100)
+                                    .scaleEffect(showIconAnimation ? 1.5 : 1)
                                     .shadow(color: Color("orange"), radius: 15)
+                                }
+                                .frame(width: 150, height: 150)
                                 
                                 Text("\(weatherDataVM.selectedCityWeather?.weatherDescription ?? "---")")
                                     .bold()
@@ -91,6 +96,7 @@ struct WeatherDetailView: View {
                                     .foregroundColor(Color("orange"))
                             }
                             
+                            // other weather information
                             VStack{
                                 WeatherDetailViewCard(cardName: "Temp Range", cardData: "\(weatherDataVM.selectedCityWeather?.tempMin ?? 0.00) ~ \(weatherDataVM.selectedCityWeather?.tempMax ?? 0.00) °\(weatherDataVM.tempUnitCelsius ? "C" : "F")")
                                 
@@ -115,8 +121,12 @@ struct WeatherDetailView: View {
             
         }
         .onAppear(){
+            // simple animation control
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
                 withAnimation { showWeatherDetail = true }
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+                withAnimation { showIconAnimation = true }
             })
         }
         .onDisappear(){

@@ -6,14 +6,13 @@
 //
 
 import SwiftUI
-//import SQLite
 
 struct CitySearchView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var weatherDataVM: WeatherDataViewModel
-    @ObservedObject var cityVM = CityViewModel()
+    @ObservedObject var cityDataVM = CityDataViewModel()
     
     @State var searchTerm = ""
     @State var searchLoading = false
@@ -61,8 +60,8 @@ struct CitySearchView: View {
                             .cornerRadius(25)
                             .onTapGesture {
                                 searchLoading = true
-                                cityVM.searchCity(searchTerm: searchTerm, completion: { results in
-                                    cityVM.citySearchResult = results
+                                cityDataVM.searchCity(searchTerm: searchTerm, completion: { results in
+                                    cityDataVM.citySearchResult = results
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
                                         searchLoading = false
@@ -83,7 +82,7 @@ struct CitySearchView: View {
                     } else {
                         ScrollView{
                             LazyVStack{
-                                ForEach(cityVM.citySearchResult, id: \.self){ city in
+                                ForEach(cityDataVM.citySearchResult, id: \.self){ city in
                                     HStack{
                                         Text("\(city.name), \(city.country)")
                                             .frame(maxWidth: .infinity, alignment: .leading)

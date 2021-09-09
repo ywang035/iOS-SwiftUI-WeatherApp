@@ -1,5 +1,5 @@
 //
-//  WeatherCardView.swift
+//  WeatherListCardView.swift
 //  WeatherApp
 //
 //  Created by Yang W on 7/9/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WeatherCardView: View {
+struct WeatherListCardView: View {
     
     var weatherDataVM: WeatherDataViewModel
     var weather: Weather
@@ -50,6 +50,6 @@ struct WeatherCardView: View {
 
 struct WeatherCardView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherCardView(weatherDataVM: WeatherDataViewModel(), weather: Weather(weatherDescription: "Sun", weatherIcon: "01d", temperature: 20.5, tempMin: 10.5, tempMax: 30.5, pressure: 100, humidity: 200, windSpeed: 30, windDegree: 45, visibility: 1000, cityName: "Melbourne", countryName: "AU"))
+        WeatherListCardView(weatherDataVM: WeatherDataViewModel(), weather: Weather(weatherDescription: "Sun", weatherIcon: "01d", temperature: 20.5, tempMin: 10.5, tempMax: 30.5, pressure: 100, humidity: 200, windSpeed: 30, windDegree: 45, visibility: 1000, cityName: "Melbourne", countryName: "AU"))
     }
 }

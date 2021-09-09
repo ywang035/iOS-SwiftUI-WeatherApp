@@ -8,7 +8,7 @@
 import Foundation
 
 class NetworkManager{
-    
+    /// fetch data from API with callback
     func fetchAPIData(unit: String, cityIDs: String, completion:@escaping (APIResponse) -> ()) {
         
         print("fetching")

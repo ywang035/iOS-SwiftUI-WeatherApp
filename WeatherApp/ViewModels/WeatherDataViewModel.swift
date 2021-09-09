@@ -1,5 +1,5 @@
 //
-//  WeatherViewModel.swift
+//  WeatherDataViewModel.swift
 //  WeatherApp
 //
 //  Created by Yang W on 7/9/21.
@@ -22,7 +22,7 @@ class WeatherDataViewModel: ObservableObject {
     var cityIDList: [String] = [String]()
     
     var fetchDataTimer : Timer?
-    var autoRefreshTimeInterval: Double = 1800
+    var autoRefreshTimeInterval: Double = 1800 //30mins
     
     enum FetchDataStatus: Identifiable {
         case  notFetching ,startFetching, finishFetching
