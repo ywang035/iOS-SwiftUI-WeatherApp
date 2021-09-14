@@ -12,7 +12,7 @@ struct CitySearchView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var weatherDataVM: WeatherDataViewModel
-    @ObservedObject var cityDataVM = CityDataViewModel()
+    @StateObject var cityDataVM = CityDataViewModel()
     
     @State var searchTerm = ""
     @State var searchLoading = false
@@ -51,23 +51,21 @@ struct CitySearchView: View {
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                         
-                        Text("Search")
-                            .bold()
-                            .padding()
-                            .frame(height: 40)
-                            .foregroundColor(Color.white)
-                            .background(Color("orange"))
-                            .cornerRadius(25)
-                            .onTapGesture {
-                                searchLoading = true
-                                cityDataVM.searchCity(searchTerm: searchTerm, completion: { results in
-                                    cityDataVM.citySearchResult = results
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-                                        searchLoading = false
-                                    })
-                                })
-                            }
+                        Button(action: {
+                            searchLoading = true
+                            cityDataVM.searchCity(searchTerm: searchTerm, completion: { results in
+                                cityDataVM.citySearchResult = results
+                                searchLoading = false
+                            })
+                        }, label: {
+                            Text("Search")
+                                .bold()
+                                .padding()
+                                .frame(height: 40)
+                                .foregroundColor(Color.white)
+                                .background(Color("orange"))
+                                .cornerRadius(25)
+                        })
                     }
                     .padding(.horizontal)
                     
@@ -96,6 +94,7 @@ struct CitySearchView: View {
                                             weatherDataVM.cityIDs = weatherDataVM.cityIDList.joined(separator: ",")
                                             weatherDataVM.saveCityList()
                                             
+                                            cityDataVM.citySearchResult.removeAll()
                                             searchTerm = ""
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
