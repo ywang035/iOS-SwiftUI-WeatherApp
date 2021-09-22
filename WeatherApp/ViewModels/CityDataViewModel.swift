@@ -11,7 +11,7 @@ import SQLite
 
 class CityDataViewModel: ObservableObject {
     
-    @Published var citySearchResult = [City]()
+    var citySearchResult = [City]()
     
     var cityList = [City]()
     var cityListDB: Connection!
@@ -115,7 +115,7 @@ class CityDataViewModel: ObservableObject {
     
     /// return search result from db
     func searchCity(searchTerm: String, completion:@escaping ([City]) -> ()) {
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             self.citySearchResult.removeAll()
             var results = [City]()
 
@@ -141,6 +141,7 @@ class CityDataViewModel: ObservableObject {
 
                             let city = City(id: cityID, name: cityName, state: "", country: cityCountry)
 
+                            
                             results.append(city)
                         }
                     } catch {
@@ -148,13 +149,13 @@ class CityDataViewModel: ObservableObject {
                         print("fail to query)")
                     }
                 }
-
-                completion(results)
-
+//                DispatchQueue.main.async {
+                    completion(results)
+//                }
             } catch {
                 print (error)
             }
         }
         
-    }    
+    }
 }
